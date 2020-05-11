@@ -10,8 +10,23 @@ const RestaurantSchema = new mongoose.Schema({
     required: true
   },
   logo: {
-    data: Buffer, contenType: String
-  }
+    data: Buffer, contentType: String
+  },
+  toppings: [
+    {
+      type: String,
+      text: String
+    }
+  ],
+  menu: [
+    {
+      type: String,
+      title: String,
+      price: Number,
+      category: String,
+      description: String
+    }
+  ]
 });
 
 module.exports = RestaurantSchema;
