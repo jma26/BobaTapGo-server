@@ -9,7 +9,19 @@ const getRestaurants = (req, res) => {
     } else {
       res.json(restaurant);
     }
-  })
+  });
+};
+
+const addRestaurant = (req, res) => {
+  let restaurant = new Restaurant(req.body);
+  restaurant.save((err, Restaurant) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(Restaurant);
+    };
+  });
 };
 
 module.exports.getRestaurants = getRestaurants;
+module.exports.addRestaurant = addRestaurant;
