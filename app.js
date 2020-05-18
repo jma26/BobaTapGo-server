@@ -10,7 +10,11 @@ const routes = require('./routes');
 const app = express();
 const port = 3000;
 
-mongoose.connect('mongodb://127.0.0.1:27017/bobaTapGo');
+mongoose.connect('mongodb://127.0.0.1:27017/bobaTapGo', {
+  "useNewUrlParser": true,
+  "useUnifiedTopology": true,
+  "useFindAndModify": false
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,7 +23,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 // Replacement of bodyParser.* as of Express v4.16.0
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
