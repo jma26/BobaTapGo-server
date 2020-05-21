@@ -14,13 +14,13 @@ const RestaurantSchema = new mongoose.Schema({
   },
   toppings: [
     {
-      type: String,
-      text: String
+      title: String,
+      text: String,
+      price: Number
     }
   ],
   menu: [
     {
-      type: String,
       title: String,
       price: Number,
       category: String,

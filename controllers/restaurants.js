@@ -29,13 +29,14 @@ const deleteRestaurant = (req, res) => {
     if (err) {
       res.send(err);
     } else {
+      // Returns deleted restaurant object
       res.json(restaurant);
     };
   });
 };
 
+// Need to test later
 const updateRestaurant = (req, res) => {
-  let restaurantUpdates = req.body;
   let query = {$set: {
     id: req.body._id,
     name: req.body.name,
@@ -57,9 +58,29 @@ const updateRestaurant = (req, res) => {
   })
 }
 
-// Separate query for menu + topping updates?
+const addTopping = (req, res) => {
+  let restaurantID = req.body.id;
+  let topping = {
+    title: req.body.title,
+    text: req.body.text,
+    price: req.body.price
+  }
+  Restaurant.findByIdAndUpdate(restaurantID, {
+    $push: {"toppings": topping}
+  }, {
+    // New returns document after update is applied
+    new: true,
+  }, (err, restaurant) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(restaurant);
+    }
+  });
+}
 
 module.exports.getRestaurants = getRestaurants;
 module.exports.addRestaurant = addRestaurant;
 module.exports.deleteRestaurant = deleteRestaurant;
 module.exports.updateRestaurant = updateRestaurant;
+module.exports.addTopping = addTopping;
