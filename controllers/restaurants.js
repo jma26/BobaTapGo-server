@@ -79,8 +79,30 @@ const addTopping = (req, res) => {
   });
 }
 
+const addItem = (req, res) => {
+  let restaurantID = req.body.id;
+  let item = {
+    title: req.body.title,
+    price: req.body.price,
+    category: req.body.category,
+    description: req.body.description
+  }
+  Restaurant.findByIdAndUpdate(restaurantID, {
+    $push: {"menu": item}
+  }, {
+    new: true,
+  }, (err, restaurant) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(restaurant);
+    }
+  });
+}
+
 module.exports.getRestaurants = getRestaurants;
 module.exports.addRestaurant = addRestaurant;
 module.exports.deleteRestaurant = deleteRestaurant;
 module.exports.updateRestaurant = updateRestaurant;
 module.exports.addTopping = addTopping;
+module.exports.addItem = addItem;
