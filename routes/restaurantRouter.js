@@ -9,6 +9,7 @@ const updateRestaurant = RestaurantController.updateRestaurant;
 const addTopping = RestaurantController.addTopping;
 const addItem = RestaurantController.addItem;
 const removeItem = RestaurantController.removeItem;
+const removeTopping = RestaurantController.removeTopping;
 
 router.get('/', getRestaurants);
 router.post('/addRestaurant', addRestaurant);
@@ -17,5 +18,6 @@ router.put('/updateRestaurant', updateRestaurant);
 router.post('/addTopping', addTopping);
 router.post('/addItem', addItem);
 router.delete('/removeItem', removeItem);
+router.delete('/removeTopping', removeTopping);
 
 module.exports = router;

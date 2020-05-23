@@ -79,6 +79,24 @@ const addTopping = (req, res) => {
   });
 }
 
+const removeTopping = (req, res) => {
+  let restaurantID = req.body.id;
+  let toppingID = req.body.toppingID;
+  Restaurant.findByIdAndUpdate(restaurantID, {
+    $pull: {"toppings": {
+      _id: toppingID,
+    }}
+  }, {
+    new: true,
+  }, (err, restaurant) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(restaurant);
+    }
+  });
+}
+
 const addItem = (req, res) => {
   let restaurantID = req.body.id;
   let item = {
@@ -123,5 +141,6 @@ module.exports.addRestaurant = addRestaurant;
 module.exports.deleteRestaurant = deleteRestaurant;
 module.exports.updateRestaurant = updateRestaurant;
 module.exports.addTopping = addTopping;
+module.exports.removeTopping = removeTopping;
 module.exports.addItem = addItem;
 module.exports.removeItem = removeItem;
