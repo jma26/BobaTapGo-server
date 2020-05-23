@@ -100,9 +100,28 @@ const addItem = (req, res) => {
   });
 }
 
+const removeItem = (req, res) => {
+  let restaurantID = req.body.id;
+  let itemID = req.body.itemID;
+  Restaurant.findByIdAndUpdate(restaurantID, {
+    $pull: {"menu": {
+      _id: itemID
+    }}
+  }, {
+    new: true,
+  }, (err, restaurant) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.json(restaurant);
+    }
+  });
+}
+
 module.exports.getRestaurants = getRestaurants;
 module.exports.addRestaurant = addRestaurant;
 module.exports.deleteRestaurant = deleteRestaurant;
 module.exports.updateRestaurant = updateRestaurant;
 module.exports.addTopping = addTopping;
 module.exports.addItem = addItem;
+module.exports.removeItem = removeItem;
